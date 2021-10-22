@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -19,7 +20,7 @@ const Users = () => {
         .then((data) => {
           if (data.deletedCount > 0) {
             alert("delete successfuly");
-            const remaingingUsers = users.filter((user) => user._id != id);
+            const remaingingUsers = users.filter((user) => user._id !== id);
             setUsers(remaingingUsers);
           }
         });
@@ -33,7 +34,10 @@ const Users = () => {
         {users.map((user) => (
           <li key={user._id}>
             Name: {user.name} :: Email: {user.email}
-            <button> 🖊️ </button>
+            <Link to={`/users/update/${user._id}`}>
+              {" "}
+              <button> 🖊️ </button>
+            </Link>
             <button onClick={() => handleDeleteUser(user._id)}>X</button>
           </li>
         ))}
